@@ -1,6 +1,6 @@
 //Dependencies
 const express = require('express');
-const routes = require('./controllers');
+const routes = require('./Controllers');
 const sequelize = require('./config/connection');
 const path = require('path');
 const helpers = require('./utils/helpers');
