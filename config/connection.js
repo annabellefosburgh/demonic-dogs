@@ -1,3 +1,5 @@
+var Sequelize = require('sequelize');
+
 sequelize = new Sequelize (
 process.env.DB_NAME,
 process.env.DB_USER,
