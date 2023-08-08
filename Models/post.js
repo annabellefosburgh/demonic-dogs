@@ -1,6 +1,7 @@
 //Dependencies
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+const sequelize = require('../config/connection.js');
+const User = require('./user.js');
 
 //Creating a Post class that extends the Model constructor. 
 class Post extends Model {}
@@ -32,7 +33,7 @@ Post.init(
       user_id: {
         type: DataTypes.INTEGER,
         references: {
-          model: 'user',
+          model: User,
           key: 'id'
         }
       }
