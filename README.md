@@ -16,7 +16,7 @@ This tech blog allows you to sign up, create posts, and comment on other posts y
 To install, clone this repository. Run an ```npm install``` to ensure you have all the necessary packages. Then run ```node server.js``` to start the server. You can now use the tech blog by accessing ```http://localhost:3001/``` in the browser.
 
 ## Usage
-To create a user, hit the 'sign up instead' button on the login screen. You will then be redirected to your dahsboard where you can ccreate a post, add a comment, and view all posts.
+To create a user, hit the 'sign up instead' button on the login screen. You will then be redirected to your dashboard where you can create a post, add a comment, and view all posts.
 
 ## Repository
 [GitHub Repository](https://github.com/annabellefosburgh/demonic-dogs)  
