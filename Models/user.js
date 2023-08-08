@@ -1,12 +1,13 @@
 //Dependencies
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+const sequelize = require('../config/connection.js');
+var db = require('../Models')
 const bcrypt = require('bcrypt');
+const saltRounds = 10
 
 //Creating User class that extends the Model constructor
 class User extends Model {
-    loginPW = BCryptHelper.CheckPassword(`${userData.password}`, passwordHash);
-    //Something here to check if the two values are correct to allow login
+   
 }
 
 //Creating a user table
@@ -54,7 +55,7 @@ User.init(
       sequelize,
       timestamps: false,
       freezeTableName: true,
-      modelName: 'user'
+      modelName: 'User'
     }
   );
   

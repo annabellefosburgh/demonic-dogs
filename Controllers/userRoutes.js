@@ -1,6 +1,7 @@
 //Dependencies
 const router = require('express').Router();
-const { User, Post, Comment } = require('../models');
+const { User, Post, Comment } = require('../Models');
+const bcrypt = require("bcrypt")
 
 //Get request for all users
 router.get('/', (req, res) => {
@@ -26,14 +27,13 @@ router.get('/:id', (req, res) => {
                     attributes: [
                         'id',
                         'title',
-                        'content',
-                        'created_at'
+                        'content'
                     ]
                 },
 
                 {
                     model: Comment,
-                    attributes: ['id', 'comment_text', 'created_at'],
+                    attributes: ['id', 'comment_text'],
                     include: {
                         model: Post,
                         attributes: ['title']
@@ -60,11 +60,11 @@ router.get('/:id', (req, res) => {
 
 //Post request for a new user 
 router.post('/', (req, res) => {
-
+    console.log(req.body)
     User.create({
         username: req.body.username,
         password: req.body.password
-    })
+    }, {individualHooks: true})
 
     .then(userData => {
             req.session.save(() => {
@@ -92,20 +92,18 @@ router.post('/login', (req, res) => {
                 res.status(400).json({ message: 'No user with that username!' });
                 return;
             }
-            const validPassword = userData.checkPassword(req.body.password);
-
-            if (!validPassword) {
+    
+            if(bcrypt.compareSync(req.body.password, userData.password)){
                 res.status(400).json({ message: 'Incorrect password!' });
-                return;
+                req.session.save(() => {
+
+                    req.session.user_id = userData.id;
+                    req.session.username = userData.username;
+                    req.session.loggedIn = true;
+    
+                    res.json({ user: userData, message: 'You are now logged in!' });
+                });
             }
-            req.session.save(() => {
-
-                req.session.user_id = userData.id;
-                req.session.username = userData.username;
-                req.session.loggedIn = true;
-
-                res.json({ user: userData, message: 'You are now logged in!' });
-            });
         })
         .catch(err => {
             console.log(err);
